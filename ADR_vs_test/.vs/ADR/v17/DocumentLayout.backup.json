@@ -1,0 +1,172 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\fortran\\ADR_qjx\\ADR\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|d:\\fortran\\adr\\adr_lqx\\tcns_cong_5th.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|d:\\fortran\\adr\\adr_lqx\\tcns_5th.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\code_scheme\\rhs.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:code_scheme\\rhs.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\code_scheme\\ghostnode_diff.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:code_scheme\\ghostnode_diff.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\code_scheme\\time_rk3.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:code_scheme\\time_rk3.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\linear5.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:linear5.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\code_scheme\\ghostnode_int.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:code_scheme\\ghostnode_int.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\main.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:main.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|D:\\fortran\\ADR_qjx\\ADR\\code_scheme\\coe_interface.f90||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{523A4008-8E7B-4604-AB88-3393562D2474}|ADR.vfproj|solutionrelative:code_scheme\\coe_interface.f90||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ghostNode_Int.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\ghostNode_Int.f90",
+              "RelativeDocumentMoniker": "Code_Scheme\\ghostNode_Int.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\ghostNode_Int.f90",
+              "RelativeToolTip": "Code_Scheme\\ghostNode_Int.f90",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-09-29T13:11:30.663Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "linear5.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\linear5.f90",
+              "RelativeDocumentMoniker": "linear5.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\linear5.f90",
+              "RelativeToolTip": "linear5.f90",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-07T15:21:22.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RHS.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\RHS.f90",
+              "RelativeDocumentMoniker": "Code_Scheme\\RHS.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\RHS.f90",
+              "RelativeToolTip": "Code_Scheme\\RHS.f90",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAYwFkAAAAxAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-09-29T13:11:05.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ghostNode_Diff.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\ghostNode_Diff.f90",
+              "RelativeDocumentMoniker": "Code_Scheme\\ghostNode_Diff.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\ghostNode_Diff.f90",
+              "RelativeToolTip": "Code_Scheme\\ghostNode_Diff.f90",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-02T13:02:14.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Time_RK3.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\Time_RK3.f90",
+              "RelativeDocumentMoniker": "Code_Scheme\\Time_RK3.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\Time_RK3.f90",
+              "RelativeToolTip": "Code_Scheme\\Time_RK3.f90",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAXAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-09-29T13:15:42.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TCNS_Cong_5th.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR\\ADR_lqx\\TCNS_Cong_5th.f90",
+              "RelativeDocumentMoniker": "..\\..\\ADR\\ADR_lqx\\TCNS_Cong_5th.f90",
+              "ToolTip": "D:\\fortran\\ADR\\ADR_lqx\\TCNS_Cong_5th.f90",
+              "RelativeToolTip": "..\\..\\ADR\\ADR_lqx\\TCNS_Cong_5th.f90",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACkAAAALAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-02T13:48:27.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TCNS_5th.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR\\ADR_lqx\\TCNS_5th.f90",
+              "RelativeDocumentMoniker": "..\\..\\ADR\\ADR_lqx\\TCNS_5th.f90",
+              "ToolTip": "D:\\fortran\\ADR\\ADR_lqx\\TCNS_5th.f90",
+              "RelativeToolTip": "..\\..\\ADR\\ADR_lqx\\TCNS_5th.f90",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAKAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-02T13:55:21.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Main.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Main.f90",
+              "RelativeDocumentMoniker": "Main.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Main.f90",
+              "RelativeToolTip": "Main.f90",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAADQAAAAfAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-02T13:15:29.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Coe_Interface.f90",
+              "DocumentMoniker": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\Coe_Interface.f90",
+              "RelativeDocumentMoniker": "Code_Scheme\\Coe_Interface.f90",
+              "ToolTip": "D:\\fortran\\ADR_qjx\\ADR\\Code_Scheme\\Coe_Interface.f90",
+              "RelativeToolTip": "Code_Scheme\\Coe_Interface.f90",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC9SURBVEhL7ZVBCsMgEEXH7uK5XBUPUXICj\u002BIJSg8hXXkuXZpqNAGrBq22BPrAzAyon68ZRMYYsCCEXKxBKbUuzoCnCTYBrXVxcoLHa9zWNM8nAhtPfPfZzlXNLr4JUEpdXYIQAowxX5UFLu5biZQSOOe\u002B2rGbhhHIOhBCuJginhM7CAIYY9TkoIauAvHxWIY7aLqDI\u002BzZ\u002B3S8gy4C1nWuf871F6X4CxxyfoGm9yBH6P6vdnKXJzPmNw7GALAAaTNhm\u002BViUEEAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-10-02T14:13:51.539Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

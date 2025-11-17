@@ -1,0 +1,383 @@
+#!MC 1410
+$!VarSet |LFDSFN1| = '"ADR_N499_WCNS-MR-O3_lam=1-eps10.plt" "ADR_N499_WCNS-MR-O5_lam=1-eps10.plt" "ADR_N499_WCNS-MR-O7_lam=1-eps10.plt" "ADR_N499_WCNS-MR-O9_lam=1-eps10.plt" "ADR_N499_WCNS-MR-O11_lam=1-eps10.plt"'
+$!VarSet |LFDSVL1| = '"omega" "Re" "Im"'
+$!SetStyleBase Factory
+$!GlobalPaper 
+  PaperSizeInfo
+    {
+    Letter
+      {
+      Width = 8.5
+      Height = 11
+      LeftHardClipOffset = 0.125
+      RightHardClipOffset = 0.125
+      TopHardClipOffset = 0.125
+      BottomHardClipOffset = 0.125
+      }
+    }
+$!Page 
+  Name = 'Untitled'
+  PaperAttributes
+    {
+    BackgroundColor = White
+    IsTransparent = Yes
+    OrientPortrait = No
+    ShowGrid = Yes
+    ShowRuler = No
+    ShowPaper = No
+    PaperSize = Letter
+    RulerSpacing = OneInch
+    PaperGridSpacing = HalfInch
+    RegionInWorkArea
+      {
+      X1 = 1
+      Y1 = 0.25
+      X2 = 10
+      Y2 = 8.25
+      }
+    }
+### Frame Number 1 ###
+$!ReadDataSet  '|LFDSFN1|'
+  InitialPlotType = XYLine
+  IncludeText = No
+  IncludeGeom = No
+  ResetStyle = No
+  AssignStrandIDs = Yes
+  VarLoadMode = ByName
+  VarNameList = '|LFDSVL1|'
+$!RemoveVar |LFDSVL1|
+$!RemoveVar |LFDSFN1|
+$!FrameLayout 
+  ShowHeader = No
+  HeaderColor = Red
+  XYPos
+    {
+    X = 1
+    Y = 0.25
+    }
+  Width = 9
+  Height = 8
+$!ThreeDAxis 
+  AspectRatioLimit = 25
+  BoxAspectRatioLimit = 25
+$!PlotType  = XYLine
+$!FrameName  = 'Frame 001'
+$!GlobalTime 
+  SolutionTime = 0
+$!DeleteLineMaps 
+$!ActiveLineMaps  =  [1-10]
+$!GlobalLinePlot 
+  DataLabels
+    {
+    DistanceSkip = 5
+    }
+  Legend
+    {
+    Show = Yes
+    Box
+      {
+      BoxType = None
+      }
+    XYPos
+      {
+      X = 41.908
+      Y = 38.879
+      }
+    }
+$!LineMap  [1]
+  Name = 'O3'
+  Assign
+    {
+    Zone = 1
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Red
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Red
+    FillColor = Red
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [2]
+  Name = 'O3'
+  Assign
+    {
+    Zone = 1
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Red
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!LineMap  [3]
+  Name = 'O5'
+  Assign
+    {
+    Zone = 2
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Blue
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Red
+    FillColor = Red
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [4]
+  Name = 'O5'
+  Assign
+    {
+    Zone = 2
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Blue
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!LineMap  [5]
+  Name = 'O7'
+  Assign
+    {
+    Zone = 3
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Custom28
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Red
+    FillColor = Red
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [6]
+  Name = 'O7'
+  Assign
+    {
+    Zone = 3
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Custom28
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!LineMap  [7]
+  Name = 'O9'
+  Assign
+    {
+    Zone = 4
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Custom3
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Red
+    FillColor = Red
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [8]
+  Name = 'O9'
+  Assign
+    {
+    Zone = 4
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Custom3
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!LineMap  [9]
+  Name = 'O11'
+  Assign
+    {
+    Zone = 5
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Purple
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Red
+    FillColor = Red
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [10]
+  Name = 'O11'
+  Assign
+    {
+    Zone = 5
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Purple
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!XYLineAxis 
+  DepXToYRatio = 1
+  ViewportPosition
+    {
+    X1 = 10.659
+    Y1 = 7.9414
+    X2 = 97.818
+    Y2 = 97.771
+    }
+  ViewportTopSnapTarget = 97.7706032285
+$!XYLineAxis 
+  XDetail 1
+    {
+    RangeMin = -0.088541824001899999
+    RangeMax = 3.7446492049790692
+    GRSpacing = 0.5
+    }
+$!XYLineAxis 
+  YDetail 1
+    {
+    RangeMin = -1.9076741943734341
+    RangeMax = 2.2673470696289582
+    GRSpacing = 0.5
+    }
+$!FrameControl ActivateByNumber
+  Frame = 1
+$!SetStyleBase Config
