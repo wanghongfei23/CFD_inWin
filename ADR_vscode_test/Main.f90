@@ -2,6 +2,7 @@
 Module CaseSetup
 implicit none
     ! ====
+    ! 王鸿飞开关
     logical:: useWCNS_MR        = .true.    !> 是否使用WCNS-MR
     logical:: useWCNS_JS        = .false.    !> 是否使用WCNS-JS
     logical:: useWCNS_Z         = .false.    !> 是否使用WCNS-Z 
@@ -21,10 +22,10 @@ End Module
 Module Variables_Zone1
 implicit none
     integer:: Nx
-    real:: Hx
-    real,allocatable,dimension( : ) :: SP_X, FP_X
-    real,allocatable,dimension( : ) :: u0, ut
-    real,allocatable,dimension(:,:) :: ADR
+    real(kind=8):: Hx
+    real(kind=8),allocatable,dimension( : ) :: SP_X, FP_X
+    real(kind=8),allocatable,dimension( : ) :: u0, ut
+    real(kind=8),allocatable,dimension(:,:) :: ADR
 End Module
 !! ----------------------------------------------!!
 
@@ -34,14 +35,14 @@ use Variables_Zone1
 use Parameters, only: PI
 implicit none
 integer:: iSP, nn, rr
-real,parameter:: T0 = 0.0
-real,parameter:: Tt = 1.E-7 !> tau
-real,parameter:: Length = 1.0
-real:: lambda_n   !> 波长
-real::    phi_n   !> 波数
-real:: Re0, Im0
-real:: Ret, Imt
-real:: dx, dt
+real(kind=8),parameter:: T0 = 0.0
+real(kind=8),parameter:: Tt = 1.E-7 !> tau
+real(kind=8),parameter:: Length = 1.0
+real(kind=8):: lambda_n   !> 波长
+real(kind=8)::    phi_n   !> 波数
+real(kind=8):: Re0, Im0
+real(kind=8):: Ret, Imt
+real(kind=8):: dx, dt
 complex*16 :: cmpLn, cmpS0, cmpSt
 !----------------------------------------
     Nx = 499
@@ -79,9 +80,9 @@ complex*16 :: cmpLn, cmpS0, cmpSt
             Re0 = 0.d0
             Im0 = 0.d0
             do iSP = 0,Nx
-	            Re0 = Re0 + u0(iSP)*cos(dble(iSP)*phi_n)
+                Re0 = Re0 + u0(iSP)*cos(dble(iSP)*phi_n)
                 Im0 = Im0 - u0(iSP)*sin(dble(iSP)*phi_n)
-	        enddo
+            enddo
             Re0 = Re0/dble(Nx)
             Im0 = Im0/dble(Nx)
         
@@ -95,15 +96,15 @@ complex*16 :: cmpLn, cmpS0, cmpSt
             Ret = 0.d0
             Imt = 0.d0
             do iSP = 0,Nx
-	            Ret = Ret + ut(iSP)*cos(dble(iSP)*phi_n)
+                Ret = Ret + ut(iSP)*cos(dble(iSP)*phi_n)
                 Imt = Imt - ut(iSP)*sin(dble(iSP)*phi_n)
-	        enddo
+            enddo
             Ret = Ret/dble(Nx)
             Imt = Imt/dble(Nx)
 
             !> 计算ADR
-            cmpS0 = cmplx(Re0,Im0)
-            cmpSt = cmplx(Ret,Imt)
+            cmpS0 = cmplx(Re0,Im0,kind=8)
+            cmpSt = cmplx(Ret,Imt,kind=8)
             cmpLn = cmpSt/cmpS0
             cmpLn = zlog(cmpLn)  !<自然对数
             dx = Hx
@@ -134,7 +135,16 @@ integer:: nn
         C1 = 'WCNS-JS-O'
     ElseIF( useWCNS_Z )Then
         C1 = 'WCNS-Z-O'
+    ElseIF( useTCNS )Then
+        C1 = 'TCNS-Z-O'
+    ElseIF( useTCNS_A )Then
+        C1 = 'TCNS-A-O'
+    ElseIF( useTCNS_S )Then
+        C1 = 'TCNS-S-O'
+    ElseIF( useTCNS_ASF102 )Then
+        C1 = 'TCNS-ASF102-O'
     EndIF
+
 
     write(C2, '(I8)') Order
     

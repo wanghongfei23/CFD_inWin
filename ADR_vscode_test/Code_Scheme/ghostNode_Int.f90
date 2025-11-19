@@ -5,8 +5,8 @@
  
 Subroutine Cal_beta_S1 ( xiL, xiR, beta1 )
 implicit none
-real,INTENT(IN ):: xiL, xiR
-real,INTENT(OUT):: beta1
+real(kind=8),INTENT(IN ):: xiL, xiR
+real(kind=8),INTENT(OUT):: beta1
     beta1 = min( xiL**2 , xiR**2 )    !> New beta_1
     return
 End Subroutine
@@ -22,18 +22,18 @@ integer,parameter:: Order = 3            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN):: nVar
-real,INTENT(IN ):: var_In(nVar,Order)    !> Stencil
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> WENO-MR
+real(kind=8),INTENT(IN ):: var_In(nVar,Order)    !> Stencil
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
 !-------------------------------------------------
     MR_IntS2(1:3    ) = (/  -1./8 ,   3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1 ) = (/  -1./2 ,    0.0,  1./2  /)   !> S2 SI_u'
@@ -102,20 +102,20 @@ integer,parameter:: Order = 5            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> WENO-MR
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -206,22 +206,22 @@ integer,parameter:: Order = 7            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> WENO-MR
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar,7), qL_S4, pL_S4, beta_S4
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar,7), qL_S4, pL_S4, beta_S4
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
-real:: MR_IntS4(7), MR_SI_S4(7,6)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS4(7), MR_SI_S4(7,6)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -323,24 +323,24 @@ integer,parameter:: Order = 9            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> WENO-MR
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar,7), qL_S4, pL_S4, beta_S4
-real:: varS5(nVar,9), qL_S5, pL_S5, beta_S5
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar,7), qL_S4, pL_S4, beta_S4
+real(kind=8):: varS5(nVar,9), qL_S5, pL_S5, beta_S5
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
-real:: MR_IntS4(7), MR_SI_S4(7,6)
-real:: MR_IntS5(9), MR_SI_S5(9,8)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS4(7), MR_SI_S4(7,6)
+real(kind=8):: MR_IntS5(9), MR_SI_S5(9,8)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -461,26 +461,26 @@ integer,parameter:: Order = 11           !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> WENO-MR
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)   , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar, 3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar, 5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar, 7), qL_S4, pL_S4, beta_S4
-real:: varS5(nVar, 9), qL_S5, pL_S5, beta_S5
-real:: varS6(nVar,11), qL_S6, pL_S6, beta_S6
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)   , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar, 3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar, 5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar, 7), qL_S4, pL_S4, beta_S4
+real(kind=8):: varS5(nVar, 9), qL_S5, pL_S5, beta_S5
+real(kind=8):: varS6(nVar,11), qL_S6, pL_S6, beta_S6
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2( 3), MR_SI_S2( 3, 2)
-real:: MR_IntS3( 5), MR_SI_S3( 5, 4)
-real:: MR_IntS4( 7), MR_SI_S4( 7, 6)
-real:: MR_IntS5( 9), MR_SI_S5( 9, 8)
-real:: MR_IntS6(11), MR_SI_S6(11,10)
+real(kind=8):: MR_IntS2( 3), MR_SI_S2( 3, 2)
+real(kind=8):: MR_IntS3( 5), MR_SI_S3( 5, 4)
+real(kind=8):: MR_IntS4( 7), MR_SI_S4( 7, 6)
+real(kind=8):: MR_IntS5( 9), MR_SI_S5( 9, 8)
+real(kind=8):: MR_IntS6(11), MR_SI_S6(11,10)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -619,7 +619,7 @@ End Subroutine
 !!                          TCNS-ASF102                         !!
 !!==============================================================!!
 
-
+! 王鸿飞
 !! ============== TCNS-ASF102 ============== !!
 Subroutine TCNS_ASF102_O3 ( nVar, var_In, var_Out )
 use Parameters
@@ -628,18 +628,18 @@ integer,parameter:: Order = 3            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN):: nVar
-real,INTENT(IN ):: var_In(nVar,Order)    !> Stencil
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> TCNS-ASF102
+real(kind=8),INTENT(IN ):: var_In(nVar,Order)    !> Stencil
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> TCNS-ASF102
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
 !-------------------------------------------------
     MR_IntS2(1:3    ) = (/  -1./8 ,   3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1 ) = (/  -1./2 ,    0.0,  1./2  /)   !> S2 SI_u'
@@ -704,24 +704,24 @@ End Subroutine
 Subroutine TCNS_ASF102_O5 ( nVar, var_In, var_Out )
 use Parameters
 implicit none
-integer,parameter:: Order = 5            !> 精度 
-integer,parameter:: nSub = (Order+1)/2   !> 子模板数 
+integer,parameter:: Order = 5              !> 精度 
+integer,parameter:: nSub = (Order+1)/2     !> 子模板数 
 integer,parameter:: nDrv =  Order - 1      !> SI的最高阶导数 
-integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL 
-real,parameter:: epsilon = 1E-10    !> TCNS-ASF102 
+integer,INTENT(IN ):: nVar                 !> 维数 
+real(kind=8),INTENT(IN ):: var_In(nVar,Order)      !> 维度，初始f
+real(kind=8),INTENT(OUT):: var_Out(nVar)           !> qL 
+real(kind=8),parameter:: epsilon = 1E-10           !> 防除零 
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -804,22 +804,22 @@ integer,parameter:: Order = 7            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> TCNS-ASF102
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> TCNS-ASF102
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar,7), qL_S4, pL_S4, beta_S4
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar,7), qL_S4, pL_S4, beta_S4
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
-real:: MR_IntS4(7), MR_SI_S4(7,6)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS4(7), MR_SI_S4(7,6)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -921,24 +921,24 @@ integer,parameter:: Order = 9            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> TCNS-ASF102
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> TCNS-ASF102
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar,7), qL_S4, pL_S4, beta_S4
-real:: varS5(nVar,9), qL_S5, pL_S5, beta_S5
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar,7), qL_S4, pL_S4, beta_S4
+real(kind=8):: varS5(nVar,9), qL_S5, pL_S5, beta_S5
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2(3), MR_SI_S2(3,2)
-real:: MR_IntS3(5), MR_SI_S3(5,4)
-real:: MR_IntS4(7), MR_SI_S4(7,6)
-real:: MR_IntS5(9), MR_SI_S5(9,8)
+real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
+real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
+real(kind=8):: MR_IntS4(7), MR_SI_S4(7,6)
+real(kind=8):: MR_IntS5(9), MR_SI_S5(9,8)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
@@ -1059,26 +1059,26 @@ integer,parameter:: Order = 11           !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real,INTENT(IN ):: var_In(nVar,Order) !> 
-real,INTENT(OUT):: var_Out(nVar)         !> qL
-real,parameter:: epsilon = 1E-10    !> TCNS-ASF102
+real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
+real(kind=8),parameter:: epsilon = 1E-10    !> TCNS-ASF102
 integer:: iVar, iDrv, iSub, coeP
-real:: varS1(nVar)   , qL_S1, pL_S1, beta_S1
-real:: varS2(nVar, 3), qL_S2, pL_S2, beta_S2
-real:: varS3(nVar, 5), qL_S3, pL_S3, beta_S3
-real:: varS4(nVar, 7), qL_S4, pL_S4, beta_S4
-real:: varS5(nVar, 9), qL_S5, pL_S5, beta_S5
-real:: varS6(nVar,11), qL_S6, pL_S6, beta_S6
-real:: Drv_qS(nDrv,nSub)
-real:: Drv_pS(nDrv,nSub)
-real:: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real:: xiL(nVar), xiR(nVar)
+real(kind=8):: varS1(nVar)   , qL_S1, pL_S1, beta_S1
+real(kind=8):: varS2(nVar, 3), qL_S2, pL_S2, beta_S2
+real(kind=8):: varS3(nVar, 5), qL_S3, pL_S3, beta_S3
+real(kind=8):: varS4(nVar, 7), qL_S4, pL_S4, beta_S4
+real(kind=8):: varS5(nVar, 9), qL_S5, pL_S5, beta_S5
+real(kind=8):: varS6(nVar,11), qL_S6, pL_S6, beta_S6
+real(kind=8):: Drv_qS(nDrv,nSub)
+real(kind=8):: Drv_pS(nDrv,nSub)
+real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
+real(kind=8):: xiL(nVar), xiR(nVar)
 
-real:: MR_IntS2( 3), MR_SI_S2( 3, 2)
-real:: MR_IntS3( 5), MR_SI_S3( 5, 4)
-real:: MR_IntS4( 7), MR_SI_S4( 7, 6)
-real:: MR_IntS5( 9), MR_SI_S5( 9, 8)
-real:: MR_IntS6(11), MR_SI_S6(11,10)
+real(kind=8):: MR_IntS2( 3), MR_SI_S2( 3, 2)
+real(kind=8):: MR_IntS3( 5), MR_SI_S3( 5, 4)
+real(kind=8):: MR_IntS4( 7), MR_SI_S4( 7, 6)
+real(kind=8):: MR_IntS5( 9), MR_SI_S5( 9, 8)
+real(kind=8):: MR_IntS6(11), MR_SI_S6(11,10)
 !-------------------------------------------------
     MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
     MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'

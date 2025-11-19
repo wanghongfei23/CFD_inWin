@@ -6,21 +6,21 @@ implicit none
 integer,parameter:: Limiter_PP_Type = 2     !> Form_2 (LF type only,  CFL<=1.0)
 !integer,parameter:: Limiter_PP_Type = 3     !> Form_3 (HLLC included, CFL<=0.5)
 integer,INTENT(IN ):: Nx
-real,INTENT(IN   ):: lambda
-real,INTENT(IN   )::   qPrim(nEq,Nx)
-real,INTENT(IN   ):: barF_SP(nEq,Nx)
-real,INTENT(IN   ):: hatF_PP(nEq,Nx+1)
-real,INTENT(INOUT):: hatF_HO(nEq,Nx+1)
+real(kind=8),INTENT(IN   ):: lambda
+real(kind=8),INTENT(IN   )::   qPrim(nEq,Nx)
+real(kind=8),INTENT(IN   ):: barF_SP(nEq,Nx)
+real(kind=8),INTENT(IN   ):: hatF_PP(nEq,Nx+1)
+real(kind=8),INTENT(INOUT):: hatF_HO(nEq,Nx+1)
 !> Var
-real,dimension(nEq,Nx):: qCons
-real,dimension(nEq,Nx):: WL_PP, WR_PP
-real,dimension(nEq,Nx):: WL_HO, WR_HO
+real(kind=8),dimension(nEq,Nx):: qCons
+real(kind=8),dimension(nEq,Nx):: WL_PP, WR_PP
+real(kind=8),dimension(nEq,Nx):: WL_HO, WR_HO
 !> Tool 
 integer:: iFP, iSP
-real:: theta, theta_R, theta_L
-real:: rho_PP, pp_PP
-real:: rho_HO, pp_HO
-real,parameter:: lim_eps = 1E-13
+real(kind=8):: theta, theta_R, theta_L
+real(kind=8):: rho_PP, pp_PP
+real(kind=8):: rho_HO, pp_HO
+real(kind=8),parameter:: lim_eps = 1E-13
     
     !> 1st-order PP Splitting
     Do iSP = 1,Nx
@@ -154,9 +154,9 @@ End Subroutine
 Subroutine Cal_pressure_1D ( cons, pp )
 use Parameters, only: vga   !< (GAMMA - 1.0)
 implicit none
-real,INTENT(IN ):: cons(3)
-real,INTENT(OUT):: pp
-!real:: E,rho,rhoU
+real(kind=8),INTENT(IN ):: cons(3)
+real(kind=8),INTENT(OUT):: pp
+!real(kind=8):: E,rho,rhoU
 !    rho  = cons(1)
 !    rhoU = cons(2)
 !    E    = cons(3)

@@ -2,10 +2,10 @@ Subroutine TVD_RK3 ( T0, Tt )
 use CaseSetup
 use Variables_Zone1
 implicit none
-real,Intent(IN):: T0, Tt
-real:: Ht
-real,dimension(0:Nx):: uk
-real,dimension(0:Nx):: RHS_1, RHS_2, RHS_3
+real(kind=8),Intent(IN):: T0, Tt
+real(kind=8):: Ht
+real(kind=8),dimension(0:Nx):: uk
+real(kind=8),dimension(0:Nx):: RHS_1, RHS_2, RHS_3
 
     Ht = Tt - T0
     !====================================> TVD-RK3

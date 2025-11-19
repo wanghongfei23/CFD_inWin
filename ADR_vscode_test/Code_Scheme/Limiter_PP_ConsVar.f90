@@ -3,17 +3,17 @@ Subroutine PP_limiter_ConsVar_1D_Euler( Nx, qL_PP, qL_HO )
 use CaseSetup, only: nEq
 implicit none
 integer,INTENT(IN ):: Nx
-real,INTENT(IN   ):: qL_PP(nEq,Nx+1)    !> 1st-order interpolation
-real,INTENT(INOUT):: qL_HO(nEq,Nx+1)    !> High-order interpolation
+real(kind=8),INTENT(IN   ):: qL_PP(nEq,Nx+1)    !> 1st-order interpolation
+real(kind=8),INTENT(INOUT):: qL_HO(nEq,Nx+1)    !> High-order interpolation
 !> Tool 
 integer:: iFP
-real:: theta
-real:: rho_PP, pp_PP
-real:: rho_HO, pp_HO
-real,parameter:: lim_eps = 1E-13
+real(kind=8):: theta
+real(kind=8):: rho_PP, pp_PP
+real(kind=8):: rho_HO, pp_HO
+real(kind=8),parameter:: lim_eps = 1E-13
 
 
-    !> ÐÞÕýÃÜ¶È
+    !> ï¿½ï¿½ï¿½ï¿½ï¿½Ü¶ï¿½
     !>---------------------------------------->
     Do iFP = 1,Nx+1
         rho_PP = qL_PP(1,iFP)
@@ -32,7 +32,7 @@ real,parameter:: lim_eps = 1E-13
     !<----------------------------------------<
     
     
-    !> ÐÞÕýÑ¹Á¦
+    !> ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
     !>---------------------------------------->
     Do iFP = 1,Nx+1
         pp_PP = qL_PP(nEq,iFP)

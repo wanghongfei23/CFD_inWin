@@ -2,20 +2,20 @@ Subroutine RHS_ghostNode ( u_In, RHS )
 use CaseSetup, only: Order
 use Variables_Zone1, only: Nx, Hx
 implicit none
-real,INTENT(IN ),dimension(0:Nx):: u_In
-real,INTENT(OUT),dimension(0:Nx)::  RHS
+real(kind=8),INTENT(IN ),dimension(0:Nx):: u_In
+real(kind=8),INTENT(OUT),dimension(0:Nx)::  RHS
 !integer,parameter:: span = (Order+1)/2
 !integer,parameter:: numGNSP = Order
 !integer,parameter:: numGNFP = (Order-1)/2
-!real,dimension( -numGNSP+0: Nx+numGNSP  )::  u_GN  !> SP
-!real,dimension( -numGNFP+0: Nx+numGNFP+1):: uL_GN  !> FP
+!real(kind=8),dimension( -numGNSP+0: Nx+numGNSP  )::  u_GN  !> SP
+!real(kind=8),dimension( -numGNFP+0: Nx+numGNFP+1):: uL_GN  !> FP
 integer:: span, numGNSP, numGNFP
-real,allocatable,dimension(:)::  u_GN, uL_GN
+real(kind=8),allocatable,dimension(:)::  u_GN, uL_GN
 !> Tool 
 integer:: iSP, iSPs,iSPe
 integer:: iFP, iFPs,iFPe
-real:: primL, primR, Stencil(Order+1)
-real:: du_SP
+real(kind=8):: primL, primR, Stencil(Order+1)
+real(kind=8):: du_SP
 !!--------------------------------------------------------
 span = (Order+1)/2
 numGNSP = Order
@@ -41,8 +41,8 @@ Allocate( uL_GN(-numGNFP+0: Nx+numGNFP+1) )
         iSPe = iFP + span-1
         Stencil(:) = u_GN( iSPs:iSPe )
         
-        ! call NLI_ghostNode_my_AS ( Stencil, primL, primR )
-        call NLI_ghostNode ( Stencil, primL, primR )
+        call NLI_ghostNode_my_AS ( Stencil, primL, primR )
+        ! call NLI_ghostNode ( Stencil, primL, primR )
         
         uL_GN(iFP) = primL
     End do
@@ -64,10 +64,10 @@ subroutine NLI_ghostNode ( Stencil, primL, primR )
 use CaseSetup, only: OInt
 implicit none
 integer,parameter:: nVar = 1
-real,INTENT(IN ):: Stencil(OInt+1)
-real,INTENT(OUT):: primL, primR
-real:: StencilL(nVar,OInt)
-real:: StencilR(nVar,OInt)
+real(kind=8),INTENT(IN ):: Stencil(OInt+1)
+real(kind=8),INTENT(OUT):: primL, primR
+real(kind=8):: StencilL(nVar,OInt)
+real(kind=8):: StencilR(nVar,OInt)
     !----------------------------------------
     StencilL(1,:) = Stencil(1:OInt)
     StencilR(1,:) = 0.0
@@ -92,10 +92,10 @@ subroutine NLI_ghostNode_my_AS ( Stencil, primL, primR )
 use CaseSetup, only: OInt
 implicit none
 integer,parameter:: nVar = 1
-real,INTENT(IN ):: Stencil(OInt+1)
-real,INTENT(OUT):: primL, primR
-real:: StencilL(nVar,OInt)
-real:: StencilR(nVar,OInt)
+real(kind=8),INTENT(IN ):: Stencil(OInt+1)
+real(kind=8),INTENT(OUT):: primL, primR
+real(kind=8):: StencilL(nVar,OInt)
+real(kind=8):: StencilR(nVar,OInt)
     !----------------------------------------
     StencilL(1,:) = Stencil(1:OInt)
     StencilR(1,:) = 0.0
@@ -121,9 +121,9 @@ End subroutine
 subroutine Diff_ghostNode ( Hx, Stencil, du_SP )
 use CaseSetup, only: ODiff
 implicit none
-real,INTENT(IN ):: Hx
-real,INTENT(IN ):: Stencil(ODiff)
-real,INTENT(OUT):: du_SP
+real(kind=8),INTENT(IN ):: Hx
+real(kind=8),INTENT(IN ):: Stencil(ODiff)
+real(kind=8),INTENT(OUT):: du_SP
     IF(     ODiff == 4 )Then
         call Diff_E4 ( Hx, Stencil, du_SP )
     ElseIF( ODiff == 6 )Then

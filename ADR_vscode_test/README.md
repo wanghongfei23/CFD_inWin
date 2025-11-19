@@ -73,7 +73,7 @@
 - [ImposeBC.f90](file:///d:/whf00/Documents/GitHub/CFD_inWin/ADR_Fortran_my/Code_BC/ImposeBC.f90)：传统SD边界处理方法
 - [ImposeBC_CBM.f90](file:///d:/whf00/Documents/GitHub/CFD_inWin/ADR_Fortran_my/Code_BC/ImposeBC_CBM.f90)：特征边界方法（当前未使用）
 
-## 编译说明
+## 编译命令
 
 gfortran -O2 Main.f90 Code_Scheme/Time_RK3.f90 Code_Scheme/RHS.f90 Code_Scheme/ghostNode_Int.f90 Code_Scheme/ghostNode_Diff.f90 Code_Scheme/Coe_Interface.f90 Code_Scheme/Limiter_PP_ConsVar.f90 Code_Scheme/Limiter_PP_Flux.f90 -o Main.exe
 

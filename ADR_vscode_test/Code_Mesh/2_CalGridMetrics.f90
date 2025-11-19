@@ -4,13 +4,13 @@
 !use Coefficients, only: QWeights_X,QWeights_Y
 !implicit none
 !integer i,j
-!real:: Row_SP_X(Nx),    Row_SP_Y(Nx),     Xxi_j(Nx),  Yxi_j(Nx)
-!real:: Row_FP_X(Nx+1),  Row_FP_Y(Nx+1)
-!real:: Col_SP_X(Ny),    Col_SP_Y(Ny),     Xeta_i(Ny), Yeta_i(Ny)
-!real:: Col_FP_X(Ny+1),  Col_FP_Y(Ny+1)
-!real:: XYeta_xi(Nx,Ny),  XetaY_xi(Nx,Ny),  XYxi_eta(Nx,Ny),  XxiY_eta(Nx,Ny) !> 用于SCMM
-!real:: XYeta_xi_j(Nx),   XetaY_xi_j(Nx),   XYxi_eta_i(Ny),   XxiY_eta_i(Ny)  !> 用于SCMM
-!real:: Area
+!real(kind=8):: Row_SP_X(Nx),    Row_SP_Y(Nx),     Xxi_j(Nx),  Yxi_j(Nx)
+!real(kind=8):: Row_FP_X(Nx+1),  Row_FP_Y(Nx+1)
+!real(kind=8):: Col_SP_X(Ny),    Col_SP_Y(Ny),     Xeta_i(Ny), Yeta_i(Ny)
+!real(kind=8):: Col_FP_X(Ny+1),  Col_FP_Y(Ny+1)
+!real(kind=8):: XYeta_xi(Nx,Ny),  XetaY_xi(Nx,Ny),  XYxi_eta(Nx,Ny),  XxiY_eta(Nx,Ny) !> 用于SCMM
+!real(kind=8):: XYeta_xi_j(Nx),   XetaY_xi_j(Nx),   XYxi_eta_i(Ny),   XxiY_eta_i(Ny)  !> 用于SCMM
+!real(kind=8):: Area
 !
 !    !==================================!
 !    !           SP度量                !
