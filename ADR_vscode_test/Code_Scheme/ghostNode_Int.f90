@@ -102,7 +102,7 @@ integer,parameter:: Order = 5            !> 精度
 integer,parameter:: nSub = (Order+1)/2   !> 子模板数
 integer,parameter:: nDrv =  Order-1      !> SI的最高阶导数
 integer,INTENT(IN ):: nVar
-real(kind=8),INTENT(IN ):: var_In(nVar,Order) !> 
+real(kind=8),INTENT(IN ):: var_In(nVar,Order)    !> 
 real(kind=8),INTENT(OUT):: var_Out(nVar)         !> qL
 real(kind=8),parameter:: epsilon = 1E-10    !> WENO-MR
 integer:: iVar, iDrv, iSub, coeP
@@ -618,7 +618,6 @@ End Subroutine
 !!==============================================================!!
 !!                          TCNS-ASF102                         !!
 !!==============================================================!!
-
 ! 王鸿飞
 !! ============== TCNS-ASF102 ============== !!
 Subroutine TCNS_ASF102_O3 ( nVar, var_In, var_Out )
@@ -701,100 +700,143 @@ real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
 End Subroutine
 
 !! ============== TCNS-ASF102 ============== !!
-Subroutine TCNS_ASF102_O5 ( nVar, var_In, var_Out )
-use Parameters
-implicit none
-integer,parameter:: Order = 5              !> 精度 
-integer,parameter:: nSub = (Order+1)/2     !> 子模板数 
-integer,parameter:: nDrv =  Order - 1      !> SI的最高阶导数 
-integer,INTENT(IN ):: nVar                 !> 维数 
-real(kind=8),INTENT(IN ):: var_In(nVar,Order)      !> 维度，初始f
-real(kind=8),INTENT(OUT):: var_Out(nVar)           !> qL 
-real(kind=8),parameter:: epsilon = 1E-10           !> 防除零 
-integer:: iVar, iDrv, iSub, coeP
-real(kind=8):: varS1(nVar)  , qL_S1, pL_S1, beta_S1
-real(kind=8):: varS2(nVar,3), qL_S2, pL_S2, beta_S2
-real(kind=8):: varS3(nVar,5), qL_S3, pL_S3, beta_S3
-real(kind=8):: Drv_qS(nDrv,nSub)
-real(kind=8):: Drv_pS(nDrv,nSub)
-real(kind=8):: Tau, alpha(nSub), alphaSum, w_NL(nSub)
-real(kind=8):: xiL(nVar), xiR(nVar)
-
-real(kind=8):: MR_IntS2(3), MR_SI_S2(3,2)
-real(kind=8):: MR_IntS3(5), MR_SI_S3(5,4)
-!-------------------------------------------------
-    MR_IntS2(1:3   ) = (/  -1./8,  3./4,  3./8  /)   !> S2 Interpolation
-    MR_SI_S2(1:3, 1) = (/  -1./2,   0.0,  1./2  /)  !> S2 SI_u'
-    MR_SI_S2(1:3, 2) = (/    1.0,  -2.0,   1.0  /)  !> S2 SI_u''
-                  
-    MR_IntS3(1:5   ) = (/  3./128,  -5./32,  45./64,  15./32,  -5./128  /)   !> S3 Interpolation
-    MR_SI_S3(1:5, 1) = (/   1./12,  -2./3 ,    0.0 ,   2./3 ,  -1./12   /)   !> S3 SI_u'
-    MR_SI_S3(1:5, 2) = (/  -1./12,   4./3 ,  -5./2 ,   4./3 ,  -1./12   /)   !> S3 SI_u''
-    MR_SI_S3(1:5, 3) = (/   -1./2,    1.0 ,    0.0 ,   -1.0 ,   1./2    /)   !> S3 SI_u'''
-    MR_SI_S3(1:5, 4) = (/     1.0,   -4.0 ,    6.0 ,   -4.0 ,    1.0    /)   !> S3 SI_u''''
-!-------------------------------------------------
-
-    !===========================> Interior FP
-    varS1(:)      = var_In(:,  3 )    !> S1 = {      n3 |      }
-    varS2(:, 1:3) = var_In(:, 2:4)    !> S2 = {   n2 n3 | n4   }   
-    varS3(:, 1:5) = var_In(:, 1:5)    !> S3 = {n1 n2 n3 | n4,n5}
-    xiL(:) = varS2(:,2) - varS2(:,1)
-    xiR(:) = varS2(:,3) - varS2(:,2)
+Subroutine TCNS_ASF102_O5_ai(nVar, var_In, var_Out)
+    Use Parameters
+    Implicit none
     
+    ! 参数声明
+    integer,parameter:: Order = 5            !> 精度
+    Integer, Intent(IN) :: nVar
+    real(kind=8),INTENT(IN ):: var_In(nVar,Order)    !> 
+    Real(kind=8), Intent(OUT) :: var_Out
     
-    !======================================================>!======================================================>
-    Do iVar=1,nVar
-        !====================================> poly_Q
-        qL_S1 = varS1(iVar)                                !> Sub-stencil Interpolation: S1
-        qL_S2 = sum( MR_IntS2(:) * varS2(iVar,:) )    !> Sub-stencil Interpolation: S2
-        qL_S3 = sum( MR_IntS3(:) * varS3(iVar,:) )    !> Sub-stencil Interpolation: S3
-        
-        Drv_qS = 0.0
-        Do iDrv = 1,2
-            Drv_qS(iDrv,S2) = sum( MR_SI_S2(:,iDrv) * varS2(iVar,:) )  !> poly_Q Drv: S2
-        End Do
-        Do iDrv = 1,4
-            Drv_qS(iDrv,S3) = sum( MR_SI_S3(:,iDrv) * varS3(iVar,:) )  !> poly_Q Drv: S3
-        End Do
-        
-        !====================================> poly_P
-        pL_S1 = qL_S1                                     
-        pL_S2 = 1./r22 * ( qL_S2 - r12*pL_S1 )            
-        pL_S3 = 1./r33 * ( qL_S3 - r13*pL_S1 - r23*pL_S2 )
-        
-        !> poly_P derivatives
-        Drv_pS = 0.0
-        Drv_pS(:,S2) = 1./r22 * ( Drv_qS(:,S2) )
-        Drv_pS(:,S3) = 1./r33 * ( Drv_qS(:,S3) - r23*Drv_pS(:,S2) )
-        
-        !> Lambda: scale derivatives
-        Do iSub = 1,nSub
-        Do iDrv = 1,2*(iSub-1)
-            coeP = iDrv-1
-            Drv_pS(iDrv,iSub) = lambda**coeP *Drv_pS(iDrv,iSub)**2
-        End Do
-        End Do
-        
-        !====================================> Beta & Tau
-        !> Smoothness Indicators
-        call Cal_beta_S1 ( xiL(iVar), xiR(iVar), beta_S1 )
-        beta_S2 = sum( Drv_pS(1:2 ,S2) )
-        beta_S3 = sum( Drv_pS(1:4 ,S3) )
-        
-        !> Tau
-        coeP = nSub-1
-        tau = ( ( abs(beta_S3-beta_S1) + abs(beta_S3-beta_S2) )/(nSub-1) )**coeP
-        
-        !====================================> Weights & Combination
-        alpha(S1) = r13 * ( 1 + tau/(epsilon + beta_S1) )
-        alpha(S2) = r23 * ( 1 + tau/(epsilon + beta_S2) )
-        alpha(S3) = r33 * ( 1 + tau/(epsilon + beta_S3) )
-           
-        alphaSum = sum(alpha)
-        w_NL = alpha/alphaSum
-        var_Out(iVar) = w_NL(1)*pL_S1  +  w_NL(2)*pL_S2  +  w_NL(3)*pL_S3
+    ! 局部变量
+    Real(kind=8) :: q(5)
+    Real(kind=8) :: beta(3)
+    Real(kind=8) :: delta_q(4)
+    Real(kind=8) :: eta_im1, eta_i, eta_ip1, eta_min
+    Real(kind=8) :: min_val, C_T, CT_1, tau, rr, ll
+    Real(kind=8) :: epsilon_A
+    Integer :: minBeta, flag, i
+    
+    ! 从输入数组提取q值
+    Do i = 1, 5
+        q(i) = var_In(1, i)
     End Do
-End Subroutine
+    
+    ! 设置epsilon_A
+    epsilon_A = 2.7551d-7
+    
+    ! 计算beta数组
+    beta(1) = 1.0d0 / 1.0d0 * (1.0d0 * q(1) - 2.0d0 * q(2) + 1.0d0 * q(3))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(1) - 4.0d0 * q(2) + 3.0d0 * q(3))**2
+    
+    beta(2) = 1.0d0 / 1.0d0 * (1.0d0 * q(2) - 2.0d0 * q(3) + 1.0d0 * q(4))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(2) + 0.0d0 * q(3) - 1.0d0 * q(4))**2
+    
+    beta(3) = 1.0d0 / 1.0d0 * (1.0d0 * q(3) - 2.0d0 * q(4) + 1.0d0 * q(5))**2 + &
+              1.0d0 / 4.0d0 * (3.0d0 * q(3) - 4.0d0 * q(4) + 1.0d0 * q(5))**2
+    
+    ! 找到最小beta的索引
+    minBeta = 1
+    Do i = 2, 3
+        If (beta(i) < beta(minBeta)) Then
+            minBeta = i
+        End If
+    End Do
+    minBeta = minBeta - 1  ! 转换为0-based索引
+    
+    ! 计算delta_q
+    delta_q(1) = q(1) - q(2)
+    delta_q(2) = q(2) - q(3)
+    delta_q(3) = q(3) - q(4)
+    delta_q(4) = q(4) - q(5)
+    
+    ! 计算eta值
+    eta_im1 = (abs(2.0d0 * delta_q(2) * delta_q(1)) + epsilon_A) / &
+              (delta_q(2)**2 + delta_q(1)**2 + epsilon_A)
+    
+    eta_i = (abs(2.0d0 * delta_q(3) * delta_q(2)) + epsilon_A) / &
+            (delta_q(3)**2 + delta_q(2)**2 + epsilon_A)
+    
+    eta_ip1 = (abs(2.0d0 * delta_q(4) * delta_q(3)) + epsilon_A) / &
+              (delta_q(4)**2 + delta_q(3)**2 + epsilon_A)
+    
+    ! 计算最小eta
+    eta_min = min(eta_im1, eta_i, eta_ip1)
+    
+    ! 计算min_val
+    min_val = min(0.24d0, eta_min)
+    
+    ! 计算C_T
+    C_T = 1.0d0 / (1255.2d0 * min_val * min_val - 152.4d0 * min_val + 9.6d0)
+    
+    ! 计算CT_1
+    CT_1 = 1.0d0 - C_T
+    
+    ! 计算tau
+    tau = abs(beta(3) - beta(1))
+    
+    ! 计算rr和ll
+    rr = C_T * tau - CT_1 * beta(minBeta + 1)  ! +1因为minBeta是0-based
+    ll = tau * beta(minBeta + 1)
+    
+    ! 计算flag
+    flag = 0
+    If (minBeta /= 0 .and. ll < rr * beta(1)) Then
+        flag = flag + 1
+    End If
+    If (minBeta /= 1 .and. ll < rr * beta(2)) Then
+        flag = flag + 2
+    End If
+    If (minBeta /= 2 .and. ll < rr * beta(3)) Then
+        flag = flag + 4
+    End If
+    
+    ! 根据flag值选择不同的计算公式
+    Select Case (flag)
+        Case (0)
+            ! 1,1,1
+            var_Out = 3.0d0 / 128.0d0 * q(1) - 5.0d0 / 32.0d0 * q(2) + &
+                      45.0d0 / 64.0d0 * q(3) + 15.0d0 / 32.0d0 * q(4) - &
+                      5.0d0 / 128.0d0 * q(5)
+        
+        Case (1)
+            ! 0,1,1
+            var_Out = -1.0d0 / 16.0d0 * q(2) + 9.0d0 / 16.0d0 * q(3) + &
+                      9.0d0 / 16.0d0 * q(4) - 1.0d0 / 16.0d0 * q(5)
+        
+        Case (2)
+            ! 1,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (3)
+            ! 0,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (4)
+            ! 1,1,0
+            var_Out = 1.0d0 / 16.0d0 * q(1) - 5.0d0 / 16.0d0 * q(2) + &
+                      15.0d0 / 16.0d0 * q(3) + 5.0d0 / 16.0d0 * q(4)
+        
+        Case (5)
+            ! 0,1,0
+            var_Out = -1.0d0 / 8.0d0 * q(2) + 3.0d0 / 4.0d0 * q(3) + &
+                      3.0d0 / 8.0d0 * q(4)
+        
+        Case (6)
+            ! 1,0,0
+            var_Out = 3.0d0 / 8.0d0 * q(1) - 5.0d0 / 4.0d0 * q(2) + &
+                      15.0d0 / 8.0d0 * q(3)
+        
+        Case Default
+            ! 0,0,0
+            var_Out = q(3)
+    End Select
+    
+End Subroutine TCNS_ASF102_O5_ai
 
 !! ============== TCNS-ASF102 ============== !!
 Subroutine TCNS_ASF102_O7 ( nVar, var_In, var_Out )
@@ -1213,5 +1255,390 @@ real(kind=8):: MR_IntS6(11), MR_SI_S6(11,10)
     End Do
 End Subroutine
 
+!!==============================================================!!
+!!                    TCNS、 TCNS_A、 TCNS_S                    !!
+!!==============================================================!!
+
+Subroutine TCNS_O5_ai(nVar, var_In, var_Out)
+    Use Parameters
+    Implicit none
+    
+    ! 参数声明
+    integer,parameter:: Order = 5            !> 精度
+    Integer, Intent(IN) :: nVar
+    real(kind=8), INTENT(IN ):: var_In(nVar,Order)    !> 
+    Real(kind=8), Intent(OUT) :: var_Out
+    
+    ! 局部变量
+    Real(kind=8) :: q(5)
+    Real(kind=8) :: beta(3)
+    Real(kind=8) :: sumbeta, C, qq, tau, CT, tempp
+    Real(kind=8) :: eps
+    Integer :: flag, i
+    
+    ! 从输入数组提取q值
+    Do i = 1, 5
+        q(i) = var_In(1, i)
+    End Do
+    
+    ! 设置epsilon
+    eps = 1.0d-40
+    
+    ! 计算beta数组
+    beta(1) = 1.0d0 / 1.0d0 * (1.0d0 * q(1) - 2.0d0 * q(2) + 1.0d0 * q(3))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(1) - 4.0d0 * q(2) + 3.0d0 * q(3))**2
+    
+    beta(2) = 1.0d0 / 1.0d0 * (1.0d0 * q(2) - 2.0d0 * q(3) + 1.0d0 * q(4))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(2) + 0.0d0 * q(3) - 1.0d0 * q(4))**2
+    
+    beta(3) = 1.0d0 / 1.0d0 * (1.0d0 * q(3) - 2.0d0 * q(4) + 1.0d0 * q(5))**2 + &
+              1.0d0 / 4.0d0 * (3.0d0 * q(3) - 4.0d0 * q(4) + 1.0d0 * q(5))**2
+    
+    ! 初始化变量
+    sumbeta = 0.0d0
+    C = 1.0d0
+    qq = 6.0d0  ! 虽然未使用，但保留以保持与C++一致
+    tau = abs(beta(3) - beta(1))
+    
+    ! 计算beta的加权和
+    Do i = 1, 3
+        tempp = C + tau / (beta(i) + eps)
+        tempp = tempp * tempp
+        beta(i) = tempp * tempp * tempp  ! tempp^6
+        sumbeta = sumbeta + beta(i)
+    End Do
+    
+    ! 计算CT
+    CT = 1.0d-5 * sumbeta
+    
+    ! 计算flag
+    flag = 0
+    If (beta(1) < CT) Then
+        flag = flag + 1
+    End If
+    If (beta(2) < CT) Then
+        flag = flag + 2
+    End If
+    If (beta(3) < CT) Then
+        flag = flag + 4
+    End If
+    
+    ! 根据flag值选择不同的计算公式
+    Select Case (flag)
+        Case (0)
+            ! 1,1,1
+            var_Out = 3.0d0 / 128.0d0 * q(1) - 5.0d0 / 32.0d0 * q(2) + &
+                      45.0d0 / 64.0d0 * q(3) + 15.0d0 / 32.0d0 * q(4) - &
+                      5.0d0 / 128.0d0 * q(5)
+        
+        Case (1)
+            ! 0,1,1
+            var_Out = -1.0d0 / 16.0d0 * q(2) + 9.0d0 / 16.0d0 * q(3) + &
+                      9.0d0 / 16.0d0 * q(4) - 1.0d0 / 16.0d0 * q(5)
+        
+        Case (2)
+            ! 1,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (3)
+            ! 0,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (4)
+            ! 1,1,0
+            var_Out = 1.0d0 / 16.0d0 * q(1) - 5.0d0 / 16.0d0 * q(2) + &
+                      15.0d0 / 16.0d0 * q(3) + 5.0d0 / 16.0d0 * q(4)
+        
+        Case (5)
+            ! 0,1,0
+            var_Out = -1.0d0 / 8.0d0 * q(2) + 3.0d0 / 4.0d0 * q(3) + &
+                      3.0d0 / 8.0d0 * q(4)
+        
+        Case (6)
+            ! 1,0,0
+            var_Out = 3.0d0 / 8.0d0 * q(1) - 5.0d0 / 4.0d0 * q(2) + &
+                      15.0d0 / 8.0d0 * q(3)
+        
+        Case Default
+            ! 0,0,0
+            var_Out = q(3)
+    End Select
+    
+End Subroutine TCNS_O5_ai
+
+
+Subroutine TCNS_A_O5_ai(nVar, var_In, var_Out)
+    Use Parameters
+    Implicit none
+    
+    ! 参数声明
+    Integer, Intent(IN) :: nVar
+    Real(kind=8), Intent(IN) :: var_In(nVar, 5)
+    Real(kind=8), Intent(OUT) :: var_Out
+    
+    ! 局部变量
+    Real(kind=8) :: q(5)
+    Real(kind=8) :: beta(3)
+    Real(kind=8) :: delta_q(4)
+    Real(kind=8) :: eta(3)
+    Real(kind=8) :: gamma_int(3)
+    Real(kind=8) :: tau, epsilon_A, eta_min, min_val, g_m, gamma_int_sum, rr, CT_A
+    Real(kind=8) :: alpha1, alpha2, C, eps
+    Integer :: beta_A, flag, i
+    
+    ! 从输入数组提取q值
+    Do i = 1, 5
+        q(i) = var_In(1, i)
+    End Do
+    
+    ! 设置参数
+    alpha1 = 10.0d0
+    alpha2 = 5.0d0
+    epsilon_A = 2.7551d-7
+    C = 1.0d0
+    eps = 1.0d-40
+    
+    ! 计算beta数组
+    beta(1) = 1.0d0 / 1.0d0 * (1.0d0 * q(1) - 2.0d0 * q(2) + 1.0d0 * q(3))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(1) - 4.0d0 * q(2) + 3.0d0 * q(3))**2
+    
+    beta(2) = 1.0d0 / 1.0d0 * (1.0d0 * q(2) - 2.0d0 * q(3) + 1.0d0 * q(4))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(2) + 0.0d0 * q(3) - 1.0d0 * q(4))**2
+    
+    beta(3) = 1.0d0 / 1.0d0 * (1.0d0 * q(3) - 2.0d0 * q(4) + 1.0d0 * q(5))**2 + &
+              1.0d0 / 4.0d0 * (3.0d0 * q(3) - 4.0d0 * q(4) + 1.0d0 * q(5))**2
+    
+    ! 计算全局光滑因子tau
+    tau = abs(beta(3) - beta(1))
+    
+    ! 计算delta_q
+    delta_q(1) = q(1) - q(2)
+    delta_q(2) = q(2) - q(3)
+    delta_q(3) = q(3) - q(4)
+    delta_q(4) = q(4) - q(5)
+    
+    ! 计算eta数组
+    eta(1) = (abs(2.0d0 * delta_q(1) * delta_q(3)) + epsilon_A) / &
+             (delta_q(1)**2 + delta_q(3)**2 + epsilon_A)
+    
+    eta(2) = (abs(2.0d0 * delta_q(2) * delta_q(4)) + epsilon_A) / &
+             (delta_q(2)**2 + delta_q(4)**2 + epsilon_A)
+    
+    eta(3) = (abs(2.0d0 * delta_q(3) * delta_q(2)) + epsilon_A) / &
+             (delta_q(3)**2 + delta_q(2)**2 + epsilon_A)
+    
+    ! 计算最小eta值
+    eta_min = min(eta(1), eta(2), eta(3))
+    
+    ! 计算min_val
+    min_val = min(1.0d0, 4.1666667d0 * eta_min)
+    
+    ! 计算g_m
+    g_m = min_val**4 * (5.0d0 - 4.0d0 * min_val)
+    
+    ! 计算beta_A
+    beta_A = floor(alpha1 - alpha2 * (1.0d0 - g_m))
+    
+    ! 计算gamma_int数组
+    gamma_int(1) = C + tau / (beta(1) + eps)
+    gamma_int(2) = C + tau / (beta(2) + eps)
+    gamma_int(3) = C + tau / (beta(3) + eps)
+    
+    ! 计算gamma_int^6
+    gamma_int(1) = gamma_int(1)**2
+    gamma_int(2) = gamma_int(2)**2
+    gamma_int(3) = gamma_int(3)**2
+    
+    gamma_int(1) = gamma_int(1)**3
+    gamma_int(2) = gamma_int(2)**3
+    gamma_int(3) = gamma_int(3)**3
+    
+    ! 计算gamma_int_sum
+    gamma_int_sum = gamma_int(1) + gamma_int(2) + gamma_int(3)
+    
+    ! 根据beta_A计算CT_A
+    Select Case (beta_A)
+        Case (5)
+            CT_A = 1.0d-5
+        Case (6)
+            CT_A = 1.0d-6
+        Case (7)
+            CT_A = 1.0d-7
+        Case (8)
+            CT_A = 1.0d-8
+        Case (9)
+            CT_A = 1.0d-9
+        Case (10)
+            CT_A = 1.0d-10
+        Case Default
+            ! 默认情况，使用1e-5
+            CT_A = 1.0d-5
+    End Select
+    
+    ! 计算rr
+    rr = CT_A * gamma_int_sum
+    
+    ! 计算flag
+    flag = 0
+    If (gamma_int(1) < rr) Then
+        flag = flag + 1
+    End If
+    If (gamma_int(2) < rr) Then
+        flag = flag + 2
+    End If
+    If (gamma_int(3) < rr) Then
+        flag = flag + 4
+    End If
+    
+    ! 根据flag值选择不同的计算公式
+    Select Case (flag)
+        Case (0)
+            ! 1,1,1
+            var_Out = 3.0d0 / 128.0d0 * q(1) - 5.0d0 / 32.0d0 * q(2) + &
+                      45.0d0 / 64.0d0 * q(3) + 15.0d0 / 32.0d0 * q(4) - &
+                      5.0d0 / 128.0d0 * q(5)
+        
+        Case (1)
+            ! 0,1,1
+            var_Out = -1.0d0 / 16.0d0 * q(2) + 9.0d0 / 16.0d0 * q(3) + &
+                      9.0d0 / 16.0d0 * q(4) - 1.0d0 / 16.0d0 * q(5)
+        
+        Case (2, 3)
+            ! 1,0,1 和 0,0,1 使用相同的公式
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (4)
+            ! 1,1,0
+            var_Out = 1.0d0 / 16.0d0 * q(1) - 5.0d0 / 16.0d0 * q(2) + &
+                      15.0d0 / 16.0d0 * q(3) + 5.0d0 / 16.0d0 * q(4)
+        
+        Case (5)
+            ! 0,1,0
+            var_Out = -1.0d0 / 8.0d0 * q(2) + 3.0d0 / 4.0d0 * q(3) + &
+                      3.0d0 / 8.0d0 * q(4)
+        
+        Case (6)
+            ! 1,0,0
+            var_Out = 3.0d0 / 8.0d0 * q(1) - 5.0d0 / 4.0d0 * q(2) + &
+                      15.0d0 / 8.0d0 * q(3)
+        
+        Case Default
+            ! 0,0,0
+            var_Out = q(3)
+    End Select
+    
+End Subroutine TCNS_A_O5_ai
+
+
+
+Subroutine TCNS_S_O5_ai(nVar, var_In, var_Out)
+    Use Parameters
+    Implicit none
+    
+    ! 参数声明
+    Integer, Intent(IN) :: nVar
+    Real(kind=8), Intent(IN) :: var_In(nVar, 5)
+    Real(kind=8), Intent(OUT) :: var_Out
+    
+    ! 局部变量
+    Real(kind=8) :: q(5)
+    Real(kind=8) :: beta(3)
+    Real(kind=8) :: tau, rr, ll, CT, CT_1
+    Integer :: minBeta, flag, i
+    
+    ! 从输入数组提取q值
+    Do i = 1, 5
+        q(i) = var_In(1, i)
+    End Do
+    
+    ! 计算beta数组
+    beta(1) = 1.0d0 / 1.0d0 * (1.0d0 * q(1) - 2.0d0 * q(2) + 1.0d0 * q(3))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(1) - 4.0d0 * q(2) + 3.0d0 * q(3))**2
+    
+    beta(2) = 1.0d0 / 1.0d0 * (1.0d0 * q(2) - 2.0d0 * q(3) + 1.0d0 * q(4))**2 + &
+              1.0d0 / 4.0d0 * (1.0d0 * q(2) + 0.0d0 * q(3) - 1.0d0 * q(4))**2
+    
+    beta(3) = 1.0d0 / 1.0d0 * (1.0d0 * q(3) - 2.0d0 * q(4) + 1.0d0 * q(5))**2 + &
+              1.0d0 / 4.0d0 * (3.0d0 * q(3) - 4.0d0 * q(4) + 1.0d0 * q(5))**2
+    
+    ! 找到最小beta的索引
+    minBeta = 1
+    Do i = 2, 3
+        If (beta(i) < beta(minBeta)) Then
+            minBeta = i
+        End If
+    End Do
+    minBeta = minBeta - 1  ! 转换为0-based索引
+    
+    ! 设置常数
+    CT = 0.15704178024750198d0
+    CT_1 = 1.0d0 - CT
+    
+    ! 计算tau
+    tau = abs(beta(3) - beta(1))
+    
+    ! 计算rr和ll
+    rr = CT * tau - CT_1 * beta(minBeta + 1)  ! +1因为minBeta是0-based
+    ll = tau * beta(minBeta + 1)
+    
+    ! 计算flag
+    flag = 0
+    If (minBeta /= 0 .and. ll < rr * beta(1)) Then
+        flag = flag + 1
+    End If
+    If (minBeta /= 1 .and. ll < rr * beta(2)) Then
+        flag = flag + 2
+    End If
+    If (minBeta /= 2 .and. ll < rr * beta(3)) Then
+        flag = flag + 4
+    End If
+    
+    ! 根据flag值选择不同的计算公式
+    Select Case (flag)
+        Case (0)
+            ! 1,1,1
+            var_Out = 3.0d0 / 128.0d0 * q(1) - 5.0d0 / 32.0d0 * q(2) + &
+                      45.0d0 / 64.0d0 * q(3) + 15.0d0 / 32.0d0 * q(4) - &
+                      5.0d0 / 128.0d0 * q(5)
+        
+        Case (1)
+            ! 0,1,1
+            var_Out = -1.0d0 / 16.0d0 * q(2) + 9.0d0 / 16.0d0 * q(3) + &
+                      9.0d0 / 16.0d0 * q(4) - 1.0d0 / 16.0d0 * q(5)
+        
+        Case (2)
+            ! 1,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (3)
+            ! 0,0,1
+            var_Out = 3.0d0 / 8.0d0 * q(3) + 3.0d0 / 4.0d0 * q(4) - &
+                      1.0d0 / 8.0d0 * q(5)
+        
+        Case (4)
+            ! 1,1,0
+            var_Out = 1.0d0 / 16.0d0 * q(1) - 5.0d0 / 16.0d0 * q(2) + &
+                      15.0d0 / 16.0d0 * q(3) + 5.0d0 / 16.0d0 * q(4)
+        
+        Case (5)
+            ! 0,1,0
+            var_Out = -1.0d0 / 8.0d0 * q(2) + 3.0d0 / 4.0d0 * q(3) + &
+                      3.0d0 / 8.0d0 * q(4)
+        
+        Case (6)
+            ! 1,0,0
+            var_Out = 3.0d0 / 8.0d0 * q(1) - 5.0d0 / 4.0d0 * q(2) + &
+                      15.0d0 / 8.0d0 * q(3)
+        
+        Case Default
+            ! 0,0,0
+            var_Out = q(3)
+    End Select
+    
+End Subroutine TCNS_S_O5_ai
 
 

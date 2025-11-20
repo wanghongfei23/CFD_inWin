@@ -87,7 +87,7 @@ real(kind=8):: StencilR(nVar,OInt)
 End subroutine
 
 
-
+! 王鸿飞
 subroutine NLI_ghostNode_my_AS ( Stencil, primL, primR )
 use CaseSetup, only: OInt
 implicit none
@@ -104,7 +104,10 @@ real(kind=8):: StencilR(nVar,OInt)
     IF(     OInt == 3 )Then
         call TCNS_ASF102_O3 ( nVar, StencilL, primL )
     ElseIF( OInt == 5 )Then
-        call TCNS_ASF102_O5 ( nVar, StencilL, primL )
+        ! call TCNS_O5_ai ( nVar, StencilL, primL )
+        ! call TCNS_A_O5_ai ( nVar, StencilL, primL )
+        ! call TCNS_S_O5_ai ( nVar, StencilL, primL )
+        call TCNS_ASF102_O5_ai ( nVar, StencilL, primL )
     ElseIF( OInt == 7 )Then
         call TCNS_ASF102_O7 ( nVar, StencilL, primL )
     ElseIF( OInt == 9 )Then

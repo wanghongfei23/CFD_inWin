@@ -3,13 +3,13 @@ Module CaseSetup
 implicit none
     ! ====
     ! 王鸿飞开关
-    logical:: useWCNS_MR        = .true.    !> 是否使用WCNS-MR
+    logical:: useWCNS_MR        = .false.    !> 是否使用WCNS-MR
     logical:: useWCNS_JS        = .false.    !> 是否使用WCNS-JS
     logical:: useWCNS_Z         = .false.    !> 是否使用WCNS-Z 
     logical:: useTCNS           = .false.    !> 是否使用TCNS 
     logical:: useTCNS_A         = .false.    !> 是否使用TCNS_A 
     logical:: useTCNS_S         = .false.    !> 是否使用TCNS_S 
-    logical:: useTCNS_ASF102    = .false.    !> 是否使用TCNS_ASF102 
+    logical:: useTCNS_ASF102    = .true.    !> 是否使用TCNS_ASF102 
     ! ====
     
     integer,parameter:: nEq = 1
@@ -45,7 +45,8 @@ real(kind=8):: Ret, Imt
 real(kind=8):: dx, dt
 complex*16 :: cmpLn, cmpS0, cmpSt
 !----------------------------------------
-    Nx = 499
+    ! Nx = 499 ! 原有的
+    Nx = 99
     Hx = Length/(Nx)
     
     Allocate(  SP_X( 0:Nx )   )
@@ -120,7 +121,7 @@ stop
 End
 
 
-
+! 王鸿飞
 subroutine Output
 use CaseSetup
 use Variables_Zone1
