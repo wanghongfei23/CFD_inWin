@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/mnt/e/CPP/linear_advect/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

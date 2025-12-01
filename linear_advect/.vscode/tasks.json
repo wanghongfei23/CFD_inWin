@@ -1,0 +1,61 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build wcns_convection",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-std=c++23",
+                "with_time.cpp",
+                "header.H",
+                "-o",
+                "wcns_convection",
+                "-lquadmath",
+                "-fopenmp",
+                "-lm"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Builds wcns_convection executable."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build wcns_convection_without_time",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-std=c++23",
+                "without_time.cpp",
+                "header.H",
+                "-o",
+                "wcns_convection_without_time",
+                "-lquadmath",
+                "-fopenmp",
+                "-lm"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Builds wcns_convection_without_time executable."
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run wcns_convection",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/wcns_convection",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "Build wcns_convection",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": {
+                "trace": true,
+                "engineLogging": true,
+                "traceResponse": "verbose"
+            }
+        },
+        {
+            "name": "Run wcns_convection_without_time",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/wcns_convection_without_time",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            // "preLaunchTask": "Build wcns_convection_without_time",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": {
+                "trace": true,
+                "engineLogging": true,
+                "traceResponse": "verbose"
+            }
+        }
+    ]
+}

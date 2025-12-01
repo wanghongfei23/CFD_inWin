@@ -1,0 +1,4 @@
+/mnt/e/CPP/linear_advect/build/CMakeFiles/wcns_convection.dir
+/mnt/e/CPP/linear_advect/build/CMakeFiles/wcns_convection_without_time.dir
+/mnt/e/CPP/linear_advect/build/CMakeFiles/edit_cache.dir
+/mnt/e/CPP/linear_advect/build/CMakeFiles/rebuild_cache.dir

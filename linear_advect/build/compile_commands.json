@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/mnt/e/CPP/linear_advect/build",
+  "command": "/usr/sbin/g++ -DHAVE_QUADMATH_H  -g -std=gnu++23 -Wall -Wextra -O3 -march=native -fopenmp -o CMakeFiles/wcns_convection.dir/with_time.cpp.o -c /mnt/e/CPP/linear_advect/with_time.cpp",
+  "file": "/mnt/e/CPP/linear_advect/with_time.cpp",
+  "output": "CMakeFiles/wcns_convection.dir/with_time.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/linear_advect/build",
+  "command": "/usr/sbin/g++ -DHAVE_QUADMATH_H  -g -std=gnu++23 -Wall -Wextra -O0 -march=native -fopenmp -o CMakeFiles/wcns_convection_without_time.dir/without_time.cpp.o -c /mnt/e/CPP/linear_advect/without_time.cpp",
+  "file": "/mnt/e/CPP/linear_advect/without_time.cpp",
+  "output": "CMakeFiles/wcns_convection_without_time.dir/without_time.cpp.o"
+}
+]

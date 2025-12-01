@@ -1,0 +1,1 @@
+/usr/sbin/g++ -g -Wl,--dependency-file=CMakeFiles/wcns_convection.dir/link.d CMakeFiles/wcns_convection.dir/with_time.cpp.o -o wcns_convection  /usr/lib/libquadmath.so -lstdc++ -lm /usr/lib/libgomp.so /usr/lib/libpthread.a
